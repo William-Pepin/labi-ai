@@ -1,12 +1,8 @@
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
 import Graph from "react-graph-vis";
-import AppGraph from "./Class/Graph";
-import Node from "./Class/Node";
-import Edge from "./Class/Edge";
 
 import { options600 } from "./Config/config";
-import { render } from "@testing-library/react";
 
 export default class App extends React.Component {
   constructor(props) {
@@ -65,6 +61,7 @@ export default class App extends React.Component {
     this.queue.push(this.state.nodes[0]); // Starting node
     this.visited[this.state.nodes[0].id] = true;
     this.endingNodeID = 15;
+
     this.runID = setInterval(() => this.parcourGraphRun(), 1000);
   }
 
@@ -78,6 +75,7 @@ export default class App extends React.Component {
       if (this.queue.length !== 0) {
         // sort le premier élément
         let element = this.queue.shift();
+
         // Toutes les edges associés à cet element
         let elementEdges = this.state.edges.filter(
           (edge) => edge.from === element.id || edge.to === element.id
@@ -97,15 +95,20 @@ export default class App extends React.Component {
           }
         });
 
-        let newNodes = this.state.nodes;
-        newNodes[element.id].color = "green";
-        this.setState({ nodes: newNodes });
+        // met une belle couleur verte
+        this.setState((prevState) => ({
+          nodes: prevState.nodes.map((node) =>
+            node.id === element.id ? { ...node, color: "green" } : node
+          ),
+        }));
       }
     } else {
       // met une belle couleur verte
-      let newNodes = this.state.nodes;
-      newNodes[this.endingNodeID].color = "green";
-      this.setState({ nodes: newNodes });
+      this.setState((prevState) => ({
+        nodes: prevState.nodes.map((node) =>
+          node.id === this.endingNodeID ? { ...node, color: "green" } : node
+        ),
+      }));
     }
   }
 
