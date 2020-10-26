@@ -64,9 +64,7 @@ export default class DepthTraversal extends React.Component {
         { from: 17, to: 18 },
       ],
     };
-    this.stack = [];
-    this.visited = {};
-    this.endingNodeID = undefined;
+    this.time = 0;
   }
 
   /**
@@ -77,12 +75,40 @@ export default class DepthTraversal extends React.Component {
    * @returns null
    */
   componentDidMount() {
-    this.stack.push(this.state.nodes[0]); // Starting node
-    this.visited[this.state.nodes[0].id] = true;
+    let startingNodeID = this.state.nodes[0].id;
+    let visited = {};
     this.endingNodeID = 15;
 
-    this.runID = setInterval(() => this.parcourGraphRun(), 1000);
+    this.parcourGraphRecursive(startingNodeID, visited);
   }
+
+  parcourGraphRecursive = (nodeID, visited) => {
+    if (!visited[this.endingNodeID]) {
+      this.time += 1000;
+      visited[nodeID] = true;
+      // met une belle couleur verte
+      setTimeout(() => {
+        this.setState((prevState) => ({
+          nodes: prevState.nodes.map((prevNode) =>
+            nodeID === prevNode.id ? { ...prevNode, color: "green" } : prevNode
+          ),
+        }));
+      }, this.time);
+
+      // Toutes les edges associés à cet element
+      let nEdges = this.state.edges.filter(
+        (edge) => edge.from === nodeID || edge.to === nodeID
+      );
+
+      nEdges.forEach((edge) => {
+        let to;
+        edge.from === nodeID ? (to = edge.to) : (to = edge.from);
+        if (!visited[to]) {
+          this.parcourGraphRecursive(to, visited);
+        }
+      });
+    }
+  };
 
   /**
    * @Date 2020-10-26
@@ -93,56 +119,6 @@ export default class DepthTraversal extends React.Component {
    */
   componentWillUnmount() {
     clearInterval(this.runID);
-  }
-
-  /**
-   * @Date 2020-10-26
-   * @Author William Pépin
-   * @Desc Fonction permettant d'effectuer un tour du parcours de graph
-   * @param null
-   * @returns null
-   */
-  parcourGraphRun() {
-    // si la length du stack n'égale pas 0
-    if (!this.visited[this.endingNodeID]) {
-      if (this.stack.length !== 0) {
-        // sort le premier élément
-        let element = this.stack.pop();
-        this.visited[element.id] = true;
-
-        // Toutes les edges associés à cet element
-        let elementEdges = this.state.edges.filter(
-          (edge) => edge.from === element.id || edge.to === element.id
-        );
-
-        // Pour chaque edge de l'élément
-        elementEdges.forEach((edge) => {
-          // Recherche du noeud associé
-          let to;
-          edge.from === element.id ? (to = edge.to) : (to = edge.from);
-
-          // s'il n'est pas visité
-          if (!this.visited[to]) {
-            // Ajout du noeud dans la queue
-            this.stack.push(this.state.nodes[to]);
-          }
-        });
-
-        // met une belle couleur verte
-        this.setState((prevState) => ({
-          nodes: prevState.nodes.map((node) =>
-            node.id === element.id ? { ...node, color: "green" } : node
-          ),
-        }));
-      }
-    } else {
-      // met une belle couleur verte
-      this.setState((prevState) => ({
-        nodes: prevState.nodes.map((node) =>
-          node.id === this.endingNodeID ? { ...node, color: "green" } : node
-        ),
-      }));
-    }
   }
 
   /**
