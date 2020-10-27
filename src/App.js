@@ -13,11 +13,30 @@ import DijkstraTraversal from "./Components/DijkstraTraversal";
  */
 export default function App() {
   return (
-    <div>
-      <BreadthTraversal></BreadthTraversal>
-      <DepthTraversal></DepthTraversal>
-      <DepthTraversalRecursive></DepthTraversalRecursive>
-      <DijkstraTraversal></DijkstraTraversal>
+    <div style={styles.app}>
+      <div>
+        <h1>Breadth</h1>
+        <BreadthTraversal></BreadthTraversal>
+      </div>
+      <div>
+        <h1>Depth</h1>
+        <DepthTraversal></DepthTraversal>
+      </div>
+      <div>
+        <h1>Depth Recursive</h1>
+        <DepthTraversalRecursive></DepthTraversalRecursive>
+      </div>
+      <div>
+        <h1>Dijkstra</h1>
+        <DijkstraTraversal></DijkstraTraversal>
+      </div>
     </div>
   );
 }
+const styles = {
+  app: {
+    textAlign: "center",
+    display: "grid",
+    gridTemplateColumns: "1fr 1fr",
+  },
+};

@@ -35,6 +35,9 @@ const options600 = {
     shape: "square",
     size: 45,
   },
+  interaction: {
+    zoomView: false,
+  },
   physics: {
     enabled: false,
   },
