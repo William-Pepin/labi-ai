@@ -108,6 +108,13 @@ export default class BreadthTraversal extends React.Component {
       if (this.queue.length !== 0) {
         // sort le premier élément
         let element = this.queue.shift();
+        this.visited[element.id] = true;
+        // met une belle couleur verte
+        this.setState((prevState) => ({
+          nodes: prevState.nodes.map((node) =>
+            node.id === element.id ? { ...node, color: "green" } : node
+          ),
+        }));
 
         // Toutes les edges associés à cet element
         let elementEdges = this.state.edges.filter(
@@ -122,26 +129,13 @@ export default class BreadthTraversal extends React.Component {
 
           // s'il n'est pas visité
           if (!this.visited[to]) {
-            this.visited[to] = true;
             // Ajout du noeud dans la queue
             this.queue.push(this.state.nodes[to]);
           }
         });
-
-        // met une belle couleur verte
-        this.setState((prevState) => ({
-          nodes: prevState.nodes.map((node) =>
-            node.id === element.id ? { ...node, color: "green" } : node
-          ),
-        }));
       }
     } else {
-      // met une belle couleur verte
-      this.setState((prevState) => ({
-        nodes: prevState.nodes.map((node) =>
-          node.id === this.endingNodeID ? { ...node, color: "green" } : node
-        ),
-      }));
+      clearInterval(this.runID);
     }
   }
 

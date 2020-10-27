@@ -109,6 +109,12 @@ export default class DepthTraversal extends React.Component {
         // sort le premier élément
         let element = this.stack.pop();
         this.visited[element.id] = true;
+        // met une belle couleur verte
+        this.setState((prevState) => ({
+          nodes: prevState.nodes.map((node) =>
+            node.id === element.id ? { ...node, color: "green" } : node
+          ),
+        }));
 
         // Toutes les edges associés à cet element
         let elementEdges = this.state.edges.filter(
@@ -127,13 +133,6 @@ export default class DepthTraversal extends React.Component {
             this.stack.push(this.state.nodes[to]);
           }
         });
-
-        // met une belle couleur verte
-        this.setState((prevState) => ({
-          nodes: prevState.nodes.map((node) =>
-            node.id === element.id ? { ...node, color: "green" } : node
-          ),
-        }));
       }
     } else {
       // met une belle couleur verte

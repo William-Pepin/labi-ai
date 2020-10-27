@@ -14,6 +14,9 @@ import DijkstraTraversal from "./Components/DijkstraTraversal";
 export default function App() {
   return (
     <div>
+      <BreadthTraversal></BreadthTraversal>
+      <DepthTraversal></DepthTraversal>
+      <DepthTraversalRecursive></DepthTraversalRecursive>
       <DijkstraTraversal></DijkstraTraversal>
     </div>
   );
