@@ -47,7 +47,7 @@ const options600 = {
       to: false,
     },
   },
-  height: "600px",
+  height: "400px",
 };
 
 export { options300, options600 };
