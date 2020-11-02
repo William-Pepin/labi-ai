@@ -21,11 +21,11 @@ export default function App() {
       </div>
       <div>
         <h1>Maze 1 path 2</h1>
-        <DijkstraTraversal startingID={4} endingID={0}></DijkstraTraversal>
+        <DijkstraTraversal startingID={0} endingID={17}></DijkstraTraversal>
       </div>
       <div>
         <h1>Maze 1 path 3</h1>
-        <DijkstraTraversal startingID={3} endingID={14}></DijkstraTraversal>
+        <DijkstraTraversal startingID={18} endingID={0}></DijkstraTraversal>
       </div>
 
       <div>
@@ -37,7 +37,7 @@ export default function App() {
       </div>
 
       <div>
-        <h1>Dijkstra alternative</h1>
+        <h1>Maze 2 path 2</h1>
         <DijkstraTraversalAlternative
           startingID={9}
           endingID={15}
@@ -45,7 +45,7 @@ export default function App() {
       </div>
 
       <div>
-        <h1>Dijkstra alternative</h1>
+        <h1>Maze 2 path 3</h1>
         <DijkstraTraversalAlternative
           startingID={9}
           endingID={6}
