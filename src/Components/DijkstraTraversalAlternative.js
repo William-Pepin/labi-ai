@@ -171,7 +171,7 @@ export default class DijkstraTraversal extends React.Component {
       this.props.endingID
     );
     console.log(this.pathStack);
-    this.runID = setInterval(() => this.parcourGraphRun(), 1000);
+    this.runID = setInterval(() => this.parcourGraphRun(), 500);
   }
 
   /**
