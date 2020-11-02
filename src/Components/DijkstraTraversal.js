@@ -4,7 +4,6 @@ import { v4 as uuidv4 } from "uuid";
 import PriorityQueue from "priorityqueuejs";
 
 import { options600 } from "../Config/config";
-import { curry } from "lodash";
 
 /**
  * @Date 2020-10-26
@@ -112,7 +111,7 @@ export default class DijkstraTraversal extends React.Component {
 
     // Pendant que la liste n'est pas vide
     while (!queue.isEmpty()) {
-      let [element, distance] = queue.deq(); // Sort l'élément prioritaire
+      let [element] = queue.deq(); // Sort l'élément prioritaire
 
       visited[element.id] = true; // Visite l'élément
 

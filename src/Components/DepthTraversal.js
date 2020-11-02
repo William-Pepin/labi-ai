@@ -135,12 +135,7 @@ export default class DepthTraversal extends React.Component {
         });
       }
     } else {
-      // met une belle couleur verte
-      this.setState((prevState) => ({
-        nodes: prevState.nodes.map((node) =>
-          node.id === this.endingNodeID ? { ...node, color: "green" } : node
-        ),
-      }));
+      clearInterval(this.runID);
     }
   }
 
